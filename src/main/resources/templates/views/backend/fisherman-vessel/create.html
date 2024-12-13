@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+<head>
+    <include th:replace="views/backend/components/metas :: metas"></include>
+    <include th:replace="views/backend/components/styles :: styles"></include>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- navbar -->
+    <include th:replace="views/backend/components/navbar :: navbar"></include>
+    <!-- sidebar -->
+    <include th:replace="views/backend/fisherman-vessel/components/sidebar :: sidebar"></include>
+
+    <!-- content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6 animated bounceInRight">
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Fisherman Vessel</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content Header (Page header) -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-outline card-primary">
+
+                    <div class="card-header">
+                        <h5><i class="fa fa-plus"></i> Create Information</h5>
+                    </div>
+
+                    <form th:action="@{/create-fishermanVessel}" th:object="${fishermanVessel}" enctype="multipart/form-data" method="post">
+                        <div class="card-body">
+
+                            <!-- message -->
+<!--                            <div th:if="${message != null}" class="card-footer text-success alert alert-default-success">-->
+<!--                                <span th:text="${message}"></span>-->
+<!--                            </div>-->
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Vessel Name:</label>
+                                                <input type="text" th:field="*{vesselName}" th:errorclass="is-invalid" class="form-control" placeholder="Vessel Name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Description:</label>
+                                                <textarea class="form-control" th:field="*{description}"
+                                                          name="description" placeholder="Description"
+                                                          required></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Fisherman Owner:</label>
+                                                <select class="form-control form-rounded" name="fishermanOwner" required
+                                                        autofocus="autofocus">
+                                                    <option>-SELECT-</option>
+                                                    <option th:each="row:${fisherman}"
+                                                            th:text="${row.firstName} + ' ' +${row.middleName} + ' ' + ${row.lastName}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>File Upload:</label>
+                                                <div class="custom-file">
+                                                    <!-- File Upload -->
+                                                    <input type="file" name="image" id="customFile"
+                                                           class="custom-file-input" required/>
+                                                    <label class="custom-file-label" for="customFile">Choose
+                                                        file</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn bg-gradient-primary">
+                                <i class="fa fa-save"></i> Create
+                            </button>
+
+                            <a href="/fisherman-vessel" class="btn btn-outline-danger">
+                                <i class="fa fa-times"></i> Close
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+        <!-- end Main content -->
+
+
+    </div>
+    <!-- end content wrapper -->
+
+
+</div>
+<include th:replace="views/backend/components/scripts :: scripts"></include>
+
+<!-- Page specific script -->
+<script th:inline="javascript">
+    window.onload = function () {
+
+        var msg = [[${message}]];
+        if (msg == "Save Failure") {
+            Command: toastr["error"]("Some error occurred, couldn't save user")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+    }
+</script>
+</body>
+</html>

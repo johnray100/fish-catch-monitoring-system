@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+<head>
+    <!--Meta-->
+    <include th:replace="views/frontend/components/metas :: metas"></include>
+    <!-- Styles -->
+    <include th:replace="views/frontend/components/styles :: styles"></include>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!--     &lt;!&ndash; Font Awesome &ndash;&gt; -->
+    <!--     <link rel="stylesheet" th:href="@{./vendors/plugins/fontawesome-free/css/all.min.css}"> -->
+    <!--     &lt;!&ndash; icheck bootstrap &ndash;&gt; -->
+    <!--     <link rel="stylesheet" th:href="@{./vendors/plugins/icheck-bootstrap/icheck-bootstrap.min.css}"> -->
+    <!--     &lt;!&ndash; Set Icon Spring &ndash;&gt; -->
+    <!--     <link rel="icon" type="image/x-icon" th:href="@{./favicon.png}"/> -->
+
+</head>
+<body class="hold-transition register-page">
+<!--register page-->
+<div class="register-page">
+
+    <div class="card card-outline card-lightblue">
+
+        <!--card header-->
+        <div class="card-header text-center">
+            <a href="/" class="h1"><b>Registration Form</b> New User</a>
+        </div>
+
+        <!--card body-->
+        <div class="card-body">
+            <p class="login-box-msg">Register a new membership</p>
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-default-success">You've successfully registered</div>
+            </div>
+
+            <form id="quickForm" action="#" th:action="@{/registration}" th:object="${users}" method="post">
+
+                <div class="input-group mb-3">
+                    <input id="firstName" class="form-control" th:field="*{firstName}" placeholder="Firstname" autofocus="autofocus" required/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input id="lastName" class="form-control" th:field="*{lastName}" placeholder="Lastname" autofocus="autofocus" required/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input id="email" class="form-control" th:field="*{email}" placeholder="Email" autofocus="autofocus" required/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input th:field="*{password}" id="password" class="form-control" type="password" placeholder="Password" required autofocus="autofocus"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <label for="agreeTerms">I agree to the <a href="#">terms</a></label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn bg-gradient-lightblue">
+                            <i class="fa fa-save"></i> Register
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <a href="/login" class="text-center">I already have a membership</a>
+        </div>
+
+    </div>
+
+</div>
+<!--end of register page-->
+
+
+<!-- jQuery -->
+<script th:src="@{./vendors/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{./vendors/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{./vendors/dist/js/adminlte.min.js}"></script>
+<!-- jquery-validation -->
+<script th:src="@{./vendors/plugins/jquery-validation/jquery.validate.min.js}"></script>
+<script th:src="@{./vendors/plugins/jquery-validation/additional-methods.min.js}"></script>
+
+<!-- Page specific script validation form -->
+<script>
+    $(function () {
+        $('#quickForm').validate({
+            rules: {
+                firstname: {
+                    required: true,
+                    firstname: true,
+                },
+                lastname: {
+                    required: true,
+                    lastname: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                terms: {
+                    required: true
+                },
+            },
+            messages: {
+                firstname: {
+                    required: "Please enter a firstname",
+                    firstname: "Please enter a valid firstname",
+                },
+                lastname: {
+                    required: "Please enter a lastname",
+                    lastname: "Please enter a valid lastname",
+                },
+                email: {
+                    required: "Please enter a email address",
+                    email: "Please enter a valid email address"
+                },
+                password: {
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                terms: "Please accept our terms"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

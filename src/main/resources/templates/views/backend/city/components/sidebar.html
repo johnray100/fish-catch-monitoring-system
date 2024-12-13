@@ -1,0 +1,113 @@
+<component th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org"
+           xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <!-- start aside container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link">
+            <span class="brand-text font-weight-light">
+                <h6 align="center"><small>Fish-Catch-Monitoring-System</small></h6>
+            </span>
+        </a>
+
+        <!-- start sidebar -->
+        <div class="sidebar">
+
+            <!-- start user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="/vendors/assets/img/avatar.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Welcome!
+                        <!--                        <span class="username" th:text="${#authentication.getPrincipal().getUsername()}">User</span> -->
+                        <!--                         <span sec:authentication="principal.username"/> -->
+                        <!--                         <span sec:authentication="principal.authorities"/> -->
+                    </a>
+                </div>
+            </div>
+            <!-- end user panel (optional) -->
+
+            <!-- start navbar -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="/" class="nav-link">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/city" class="nav-link active">
+                            <i class="nav-icon fas fa-city"></i>
+                            <p>City</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/province" class="nav-link">
+                            <i class="nav-icon fas fa-location-arrow"></i>
+                            <p>Province</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/markets" class="nav-link">
+                            <i class="nav-icon fas fa-store"></i>
+                            <p>Market</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/fisherman" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Fisherman</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/fisherman-vessel" class="nav-link">
+                            <i class="nav-icon fas fa-ship"></i>
+                            <p>Fisherman Vessel</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/catchRecord" class="nav-link">
+                            <i class="nav-icon fas fa-fish"></i>
+                            <p>Catch Record</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/users" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-chart-pie"></i>
+                            <p>Reports
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right"></span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link ">
+                                    <i class="fa fa-circle nav-icon"></i>
+                                    <p>Monthly Catch</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}" class="nav-link">
+                            <i class="nav-icon fa fa-power-off"></i>
+                            <p>
+                                Logout
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar -->
+        </div>
+        <!-- end sidebar -->
+    </aside>
+    <!-- end aside container -->
+</component>
